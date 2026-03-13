@@ -1,0 +1,30 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <textarea id="textInput"></textarea>
+        <div id="textOutput"></div>
+        <button id="button">Переделать</button>
+        <script>
+            const button = document.querySelector("#button");
+
+            button.onclick = function (e) {
+                let text = document.querySelector("#textInput").value;
+
+                // 1. Заголовки: #, ##, ### и т.д. -> [b]текст[/b]
+                //    ^ - начало строки, #{1,6} - от одной до шести решёток, \s+ - пробел,
+                //    (.*) - сам текст, $ - конец строки. Флаг m - включаем многострочный режим.
+                text = text.replace(/^(#{1,6})\s+(.*)$/gm, '[b]$2[/b]');
+
+                // 2. Жирный текст: текст -> [b]текст[/b]
+                text = text.replace(/\*\*(.*?)\*\*/gs, '[b]$1[/b]');
+
+                // 3. Курсив: *текст* -> [i]текст[/i]
+                text = text.replace(/\*(.*?)\*/gs, '[i]$1[/i]');
+
+                // Дальше вывод, куда хочешь
+                document.querySelector("#textOutput").innerText = text;
+            }
+        </script>
+    </body>
+</html>
